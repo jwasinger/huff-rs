@@ -670,7 +670,7 @@ impl From<&str> for BuiltinFunctionKind {
             "__tablestart" => BuiltinFunctionKind::Tablestart,
             "__FUNC_SIG" => BuiltinFunctionKind::FunctionSignature,
             "__EVENT_HASH" => BuiltinFunctionKind::EventHash,
-            "__encode_evmmax_input" => BuiltinFunctionKind::EncodeEVMMAXInput,
+            "__encode_evmmax_inputs" => BuiltinFunctionKind::EncodeEVMMAXInput,
             _ => panic!("Invalid Builtin Function Kind"), // TODO: Better error handling
         }
     }
