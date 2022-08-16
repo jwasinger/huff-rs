@@ -257,6 +257,9 @@ pub fn statement_gen(
                         })
                     }
                 }
+                BuiltinFunctionKind::EncodeEVMMAXInput => {
+                    println!("{}", bf.args.len())
+                },
                 BuiltinFunctionKind::FunctionSignature => {
                     if bf.args.len() != 1 {
                         tracing::error!(
