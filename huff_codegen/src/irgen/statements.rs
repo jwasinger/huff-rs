@@ -258,7 +258,24 @@ pub fn statement_gen(
                     }
                 }
                 BuiltinFunctionKind::EncodeEVMMAXInput => {
-                    println!("{}", bf.args.len())
+                    tracing::info!(
+                        target: "codegen",
+                        "shiiit",
+                    );
+                    if bf.args.len() == 1 {
+                        bytes.push((*offset, Bytes(format!("{}00", Opcode::Push1))));
+                        *offset += 2;
+                    } else if bf.args.len() == 3 {
+                        tracing::info!(
+                            target: "codegen",
+                            "shiiit",
+                        );
+                        let res = Bytes(format!("{}000000", Opcode::Push3));
+                        bytes.push((*offset, res));
+                        *offset += 4;
+                    } else {
+                        panic!("uh oh");
+                    }
                 },
                 BuiltinFunctionKind::FunctionSignature => {
                     if bf.args.len() != 1 {
