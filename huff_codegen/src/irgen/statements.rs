@@ -284,7 +284,7 @@ pub fn statement_gen(
                                                     .get(0)
                             {
                                 Some(c) => {
-                                    match c {
+                                    match c.value {
                                         ConstVal::Literal(l) => l,
                                         ConstVal::FreeStoragePointer(_) => {
                                             panic!("argument to __encode_evmmax_inputs cannot be FREESTORAGEPOINTER");
@@ -292,16 +292,17 @@ pub fn statement_gen(
                                     }
                                 }
                                 None => {
-                                    panic!("wat");
+                                    let s = bf.args[i].name.as_ref().unwrap().to_string();
+                                    panic!("unknown constant name '{message}'", message=s);
                                 }
                             };
 
-                            for j in 1..const_val.len() {
+                            for j in 0..const_val.len()-1 {
                                 if const_val[j] != 0 {
-                                    panic!("damnit");
+                                    panic!("constant value must be less than 256");
                                 }
                             }
-                            bytes.push((*offset, Bytes(format!("{}", const_val[0]))));
+                            bytes.push((*offset, Bytes(format!("{}", const_val[31]))));
                             *offset += 1;
                         }
 
