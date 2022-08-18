@@ -274,6 +274,13 @@ pub fn statement_gen(
                     TODO: get the consant value from Contract.constants -> ConstVal (enum) Literal(Literal)
                     */
                     if bf.args.len() == 1 || bf.args.len() == 3 {
+                        if bf.args.len() == 1 {
+                            bytes.push((*offset, Bytes(format!("{}", Opcode::Push1))));
+                        } else if bf.args.len() == 3 {
+                            bytes.push((*offset, Bytes(format!("{}", Opcode::Push3))));
+                        }
+                        *offset += 1;
+
                         for i in 0..bf.args.len() {
                             // get the value for the constant associated with the argument
                             let const_val = match contract.constants
@@ -302,16 +309,9 @@ pub fn statement_gen(
                                     panic!("constant value must be less than 256");
                                 }
                             }
-                            bytes.push((*offset, Bytes(format!("{}", const_val[31]))));
+                            bytes.push((*offset, Bytes(format!("{:02x}", const_val[31]))));
                             *offset += 1;
                         }
-
-                        if bf.args.len() == 1 {
-                            bytes.push((*offset, Bytes(format!("{}", Opcode::Push1))));
-                        } else if bf.args.len() == 3 {
-                            bytes.push((*offset, Bytes(format!("{}", Opcode::Push3))));
-                        }
-                        *offset += 1;
                     } else {
                         panic!("uh oh");
                     }
