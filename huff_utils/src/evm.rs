@@ -760,10 +760,10 @@ impl Opcode {
             Opcode::Invalid => "fe",
             Opcode::Selfdestruct => "ff",
 
-            Opcode::MulMontMAX => "21",
-            Opcode::SubModMAX => "22",
-            Opcode::AddModMAX => "23",
-            Opcode::SetModMAX => "24",
+            Opcode::SetModMAX => "21",
+            Opcode::AddModMAX => "22",
+            Opcode::SubModMAX => "23",
+            Opcode::MulMontMAX => "24",
             Opcode::ToMontMAX => "25",
         };
         opcode_str.to_string()
