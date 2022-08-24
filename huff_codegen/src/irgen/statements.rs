@@ -273,9 +273,11 @@ pub fn statement_gen(
                     /*
                     TODO: get the consant value from Contract.constants -> ConstVal (enum) Literal(Literal)
                     */
-                    if bf.args.len() == 1 || bf.args.len() == 3 {
+                    if bf.args.len() == 1 || bf.args.len() == 2 || bf.args.len() == 3 {
                         if bf.args.len() == 1 {
                             bytes.push((*offset, Bytes(format!("{}", Opcode::Push1))));
+                        } else if bf.args.len() == 2 {
+                            bytes.push((*offset, Bytes(format!("{}", Opcode::Push2))));
                         } else if bf.args.len() == 3 {
                             bytes.push((*offset, Bytes(format!("{}", Opcode::Push3))));
                         }
