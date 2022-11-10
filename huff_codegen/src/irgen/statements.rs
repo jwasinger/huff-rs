@@ -257,6 +257,67 @@ pub fn statement_gen(
                         })
                     }
                 }
+                BuiltinFunctionKind::EncodeEVMMAXInput => {
+                    tracing::info!(
+                        target: "codegen",
+                        "shiiit2",
+                    );
+
+                    let arg = bf.args[0].name.as_ref().unwrap().to_string();
+                    tracing::error!(
+                        target: "codegen",
+                        "okayyy={}",
+                        arg
+                    );
+
+                    /*
+                    TODO: get the consant value from Contract.constants -> ConstVal (enum) Literal(Literal)
+                    */
+                    if bf.args.len() == 1 || bf.args.len() == 2 || bf.args.len() == 3 {
+                        if bf.args.len() == 1 {
+                            bytes.push((*offset, Bytes(format!("{}", Opcode::Push1))));
+                        } else if bf.args.len() == 2 {
+                            bytes.push((*offset, Bytes(format!("{}", Opcode::Push2))));
+                        } else if bf.args.len() == 3 {
+                            bytes.push((*offset, Bytes(format!("{}", Opcode::Push3))));
+                        }
+                        *offset += 1;
+
+                        for i in 0..bf.args.len() {
+                            // get the value for the constant associated with the argument
+                            let const_val = match contract.constants
+                                                    .borrow()
+                                                    .iter()
+                                                    .filter(|c| c.name.eq(&bf.args[i].name.as_ref().unwrap().to_string()))
+                                                    .collect::<Vec<&ConstantDefinition>>()
+                                                    .get(0)
+                            {
+                                Some(c) => {
+                                    match c.value {
+                                        ConstVal::Literal(l) => l,
+                                        ConstVal::FreeStoragePointer(_) => {
+                                            panic!("argument to __encode_evmmax_inputs cannot be FREESTORAGEPOINTER");
+                                        }
+                                    }
+                                }
+                                None => {
+                                    let s = bf.args[i].name.as_ref().unwrap().to_string();
+                                    panic!("unknown constant name '{message}'", message=s);
+                                }
+                            };
+
+                            for j in 0..const_val.len()-1 {
+                                if const_val[j] != 0 {
+                                    panic!("constant value must be less than 256");
+                                }
+                            }
+                            bytes.push((*offset, Bytes(format!("{:02x}", const_val[31]))));
+                            *offset += 1;
+                        }
+                    } else {
+                        panic!("uh oh");
+                    }
+                },
                 BuiltinFunctionKind::FunctionSignature => {
                     if bf.args.len() != 1 {
                         tracing::error!(
