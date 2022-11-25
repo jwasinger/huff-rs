@@ -658,8 +658,12 @@ pub enum BuiltinFunctionKind {
     FunctionSignature,
     /// Event hash function
     EventHash,
-    /// encode byte inputs as PUSH-data for evmmax arith ops
-    EncodeEVMMAXInput,
+    /// addmodx
+    Addmodx,
+    /// submodx
+    Submodx,
+    /// mulmontx
+    Mulmontx,
 }
 
 impl From<&str> for BuiltinFunctionKind {
@@ -670,7 +674,9 @@ impl From<&str> for BuiltinFunctionKind {
             "__tablestart" => BuiltinFunctionKind::Tablestart,
             "__FUNC_SIG" => BuiltinFunctionKind::FunctionSignature,
             "__EVENT_HASH" => BuiltinFunctionKind::EventHash,
-            "__encode_evmmax_inputs" => BuiltinFunctionKind::EncodeEVMMAXInput,
+            "__addmodx" => BuiltinFunctionKind::Addmodx,
+            "__submodx" => BuiltinFunctionKind::Submodx,
+            "__mulmontx" => BuiltinFunctionKind::Mulmontx,
             _ => panic!("Invalid Builtin Function Kind"), // TODO: Better error handling
         }
     }

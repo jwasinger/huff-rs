@@ -257,6 +257,52 @@ pub fn statement_gen(
                         })
                     }
                 }
+                BuiltinFunctionKind::Addmodx => {
+                        if bf.args.len() != 3 {
+                            panic!("__addmodx requires 3 args")
+                        }
+
+                        bytes.push((*offset, Bytes(format!("{}", Opcode::Addmodx))));
+                        for i in 0..bf.args.len() {
+                            // get the value for the constant associated with the argument
+                            let const_val = match contract.constants
+                                                    .borrow()
+                                                    .iter()
+                                                    .filter(|c| c.name.eq(&bf.args[i].name.as_ref().unwrap().to_string()))
+                                                    .collect::<Vec<&ConstantDefinition>>()
+                                                    .get(0)
+                            {
+                                Some(c) => {
+                                    match c.value {
+                                        ConstVal::Literal(l) => l,
+                                        ConstVal::FreeStoragePointer(_) => {
+                                            panic!("argument to __encode_evmmax_inputs cannot be FREESTORAGEPOINTER");
+                                        }
+                                    }
+                                }
+                                None => {
+                                    let s = bf.args[i].name.as_ref().unwrap().to_string();
+                                    panic!("unknown constant name '{message}'", message=s);
+                                }
+                            };
+
+                            for j in 0..const_val.len()-1 {
+                                if const_val[j] != 0 {
+                                    panic!("constant value must be less than 256");
+                                }
+                            }
+                            bytes.push((*offset, Bytes(format!("{:02x}", const_val[31]))));
+                            *offset += 1;
+                        }
+
+                },
+                BuiltinFunctionKind::Submodx => {
+
+                },
+                BuiltinFunctionKind::Mulmontx => {
+
+                },
+                /*
                 BuiltinFunctionKind::EncodeEVMMAXInput => {
                     tracing::info!(
                         target: "codegen",
@@ -318,6 +364,7 @@ pub fn statement_gen(
                         panic!("uh oh");
                     }
                 },
+                */
                 BuiltinFunctionKind::FunctionSignature => {
                     if bf.args.len() != 1 {
                         tracing::error!(

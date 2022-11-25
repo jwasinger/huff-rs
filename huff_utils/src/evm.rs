@@ -150,11 +150,11 @@ pub const OPCODES: [&str; 147] = [
     "dup2",
     "dup1",
 
-    "mulmontmax",
-    "submodmax",
-    "addmodmax",
-    "setmodmax",
-    "tomontmax",
+    "setmodx",
+    "addmodx",
+    "submodx",
+    "mulmontx",
+    "tomontx",
 ];
 
 /// Hashmap of all the EVM opcodes
@@ -302,11 +302,11 @@ pub static OPCODES_MAP: phf::Map<&'static str, Opcode> = phf_map! {
     "invalid" => Opcode::Invalid,
     "selfdestruct" => Opcode::Selfdestruct,
 
-    "mulmontmax" => Opcode::MulMontMAX,
-    "addmodmax" => Opcode::AddModMAX,
-    "submodmax" => Opcode::SubModMAX,
-    "setmodmax" => Opcode::SetModMAX,
-    "tomontmax" => Opcode::ToMontMAX,
+    "setmodx" => Opcode::Setmodx,
+    "mulmontx" => Opcode::Mulmontx,
+    "addmodx" => Opcode::Addmodx,
+    "submodx" => Opcode::Submodx,
+    "tomontx" => Opcode::Tomontx,
 };
 
 /// EVM Opcodes
@@ -604,11 +604,11 @@ pub enum Opcode {
     /// Get hash of an account’s code
     Extcodehash,
 
-    MulMontMAX,
-    AddModMAX,
-    SubModMAX,
-    SetModMAX,
-    ToMontMAX,
+    Setmodx,
+    Addmodx,
+    Submodx,
+    Mulmontx,
+    Tomontx,
 }
 
 impl Opcode {
@@ -760,11 +760,11 @@ impl Opcode {
             Opcode::Invalid => "fe",
             Opcode::Selfdestruct => "ff",
 
-            Opcode::SetModMAX => "21",
-            Opcode::AddModMAX => "22",
-            Opcode::SubModMAX => "23",
-            Opcode::MulMontMAX => "24",
-            Opcode::ToMontMAX => "25",
+            Opcode::Setmodx => "21",
+            Opcode::Addmodx => "22",
+            Opcode::Submodx => "23",
+            Opcode::Mulmontx => "24",
+            Opcode::Tomontx => "25",
         };
         opcode_str.to_string()
     }

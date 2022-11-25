@@ -564,7 +564,9 @@ impl<'a> Iterator for Lexer<'a> {
                                     "__tablestart" |
                                     "__FUNC_SIG" |
                                     "__EVENT_HASH" |
-                                    "__encode_evmmax_inputs" /* TODO: Clean this process up */
+                                    "__addmodx" |
+                                    "__submodx" |
+                                    "__mulmontx" /* TODO: Clean this process up */
                             )
                         {
                             TokenKind::BuiltinFunction(slice)
