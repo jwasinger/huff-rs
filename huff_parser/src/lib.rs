@@ -557,7 +557,7 @@ impl Parser {
                         ty: StatementType::Opcode(o),
                         span: AstSpan(curr_spans),
                     });
-                }
+                },
                 TokenKind::Ident(ident_str) => {
                     let mut curr_spans = vec![self.current_token.span.clone()];
                     tracing::info!(target: "parser", "PARSING LABEL BODY: [IDENT: {}]", ident_str);
