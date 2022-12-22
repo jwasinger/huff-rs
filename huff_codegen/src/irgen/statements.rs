@@ -336,7 +336,7 @@ pub fn statement_gen(
                 },
                 BuiltinFunctionKind::Mulmontx => {
                         if bf.args.len() != 3 {
-                            panic!("__submodx requires 3 args")
+                            panic!("__mulmontx requires 3 args")
                         }
 
                         bytes.push((*offset, Bytes(format!("{}", Opcode::Mulmontx))));
