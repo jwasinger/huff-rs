@@ -288,7 +288,7 @@ fn main() {
                     tracing::info!(target: "cli", "RE-EXPORTED INTERACTIVE ARTIFACTS");
                 }
                 match sources.len() {
-                    1 => print!("{}", artifacts[0].bytecode),
+                    1 => print!("{}", artifacts[0].runtime),
                     _ => artifacts
                         .iter()
                         .for_each(|a| println!("\"{}\" bytecode: {}", a.file.path, a.bytecode)),
