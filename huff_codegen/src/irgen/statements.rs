@@ -264,6 +264,12 @@ pub fn statement_gen(
 
                         bytes.push((*offset, Bytes(format!("{}", Opcode::Addmodx))));
                         for i in 0..bf.args.len() {
+                            let arg_name = &bf.args[i].name.as_ref().unwrap().to_string();
+                            if let Ok(val_int) = arg_name.parse::<u8>() {
+                                bytes.push((*offset, Bytes(format!("{:02x}", val_int))));
+                                *offset += 1;
+                                continue
+                            }
                             // get the value for the constant associated with the argument
                             let const_val = match contract.constants
                                                     .borrow()
@@ -303,6 +309,12 @@ pub fn statement_gen(
 
                         bytes.push((*offset, Bytes(format!("{}", Opcode::Submodx))));
                         for i in 0..bf.args.len() {
+                            let arg_name = &bf.args[i].name.as_ref().unwrap().to_string();
+                            if let Ok(val_int) = arg_name.parse::<u8>() {
+                                bytes.push((*offset, Bytes(format!("{:02x}", val_int))));
+                                *offset += 1;
+                                continue
+                            }
                             // get the value for the constant associated with the argument
                             let const_val = match contract.constants
                                                     .borrow()
@@ -341,6 +353,12 @@ pub fn statement_gen(
 
                         bytes.push((*offset, Bytes(format!("{}", Opcode::Mulmontx))));
                         for i in 0..bf.args.len() {
+                            let arg_name = &bf.args[i].name.as_ref().unwrap().to_string();
+                            if let Ok(val_int) = arg_name.parse::<u8>() {
+                                bytes.push((*offset, Bytes(format!("{:02x}", val_int))));
+                                *offset += 1;
+                                continue
+                            }
                             // get the value for the constant associated with the argument
                             let const_val = match contract.constants
                                                     .borrow()
