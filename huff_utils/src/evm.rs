@@ -6,7 +6,7 @@ use strum_macros::EnumString;
 /// They are arranged in a particular order such that all the opcodes that have common
 /// prefixes are ordered by decreasing length to avoid mismatch when lexing.
 /// Example : [origin, or] or [push32, ..., push3]
-pub const OPCODES: [&str; 147] = [
+pub const OPCODES: [&str; 148] = [
     "lt",
     "gt",
     "slt",
@@ -150,11 +150,12 @@ pub const OPCODES: [&str; 147] = [
     "dup2",
     "dup1",
 
-    "setmodx",
+    "setupx",
     "addmodx",
     "submodx",
     "mulmontx",
-    "tomontx",
+    "loadx",
+    "storex",
 ];
 
 /// Hashmap of all the EVM opcodes
@@ -302,11 +303,12 @@ pub static OPCODES_MAP: phf::Map<&'static str, Opcode> = phf_map! {
     "invalid" => Opcode::Invalid,
     "selfdestruct" => Opcode::Selfdestruct,
 
-    "setmodx" => Opcode::Setmodx,
+    "setupx" => Opcode::Setupx,
     "mulmontx" => Opcode::Mulmontx,
     "addmodx" => Opcode::Addmodx,
     "submodx" => Opcode::Submodx,
-    "tomontx" => Opcode::Tomontx,
+    "loadx" => Opcode::Loadx,
+    "storex" => Opcode::Storex,
 };
 
 /// EVM Opcodes
@@ -604,11 +606,12 @@ pub enum Opcode {
     /// Get hash of an account’s code
     Extcodehash,
 
-    Setmodx,
+    Setupx,
     Addmodx,
     Submodx,
     Mulmontx,
-    Tomontx,
+    Loadx,
+    Storex,
 }
 
 impl Opcode {
@@ -760,11 +763,12 @@ impl Opcode {
             Opcode::Invalid => "fe",
             Opcode::Selfdestruct => "ff",
 
-            Opcode::Setmodx => "21",
+            Opcode::Setupx => "21",
             Opcode::Addmodx => "22",
             Opcode::Submodx => "23",
             Opcode::Mulmontx => "24",
-            Opcode::Tomontx => "25",
+            Opcode::Loadx => "25",
+            Opcode::Storex => "26",
         };
         opcode_str.to_string()
     }
