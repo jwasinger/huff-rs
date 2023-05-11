@@ -263,6 +263,9 @@ pub fn statement_gen(
                         }
 
                         bytes.push((*offset, Bytes(format!("{}", Opcode::Addmodx))));
+                        *offset += 1;
+                        bytes.push((*offset, Bytes(format!("{}", Opcode::Push3))));
+                        *offset += 1;
                         for i in 0..bf.args.len() {
                             let arg_name = &bf.args[i].name.as_ref().unwrap().to_string();
                             if arg_name.chars().nth(0).unwrap() == 's' {
@@ -313,6 +316,9 @@ pub fn statement_gen(
                         }
 
                         bytes.push((*offset, Bytes(format!("{}", Opcode::Submodx))));
+                        *offset += 1;
+                        bytes.push((*offset, Bytes(format!("{}", Opcode::Push3))));
+                        *offset += 1;
                         for i in 0..bf.args.len() {
                             let arg_name = &bf.args[i].name.as_ref().unwrap().to_string();
                             if arg_name.chars().nth(0).unwrap() == 's' {
@@ -362,6 +368,10 @@ pub fn statement_gen(
                         }
 
                         bytes.push((*offset, Bytes(format!("{}", Opcode::Mulmontx))));
+                        *offset += 1;
+                        bytes.push((*offset, Bytes(format!("{}", Opcode::Push3))));
+                        *offset += 1;
+
                         for i in 0..bf.args.len() {
                             let arg_name = &bf.args[i].name.as_ref().unwrap().to_string();
                             if arg_name.chars().nth(0).unwrap() == 's' {
