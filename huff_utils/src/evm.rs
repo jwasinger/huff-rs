@@ -763,12 +763,12 @@ impl Opcode {
             Opcode::Invalid => "fe",
             Opcode::Selfdestruct => "ff",
 
-            Opcode::Setupx => "21",
-            Opcode::Addmodx => "22",
-            Opcode::Submodx => "23",
-            Opcode::Mulmontx => "24",
-            Opcode::Loadx => "25",
-            Opcode::Storex => "26",
+            Opcode::Setupx => "c0",
+            Opcode::Loadx => "c1",
+            Opcode::Storex => "c2",
+            Opcode::Addmodx => "c3",
+            Opcode::Submodx => "c4",
+            Opcode::Mulmontx => "c5",
         };
         opcode_str.to_string()
     }
