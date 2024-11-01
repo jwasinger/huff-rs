@@ -258,8 +258,8 @@ pub fn statement_gen(
                     }
                 }
                 BuiltinFunctionKind::Addmodx => {
-                        if bf.args.len() != 3 {
-                            panic!("__addmodx requires 3 args"); // TODO why is ';' optional here?
+                        if bf.args.len() != 7 {
+                            panic!("__addmodx requires 7 args"); // TODO why is ';' optional here?
                         }
 
                         bytes.push((*offset, Bytes(format!("{}", Opcode::Addmodx))));
@@ -308,8 +308,8 @@ pub fn statement_gen(
 
                 },
                 BuiltinFunctionKind::Submodx => {
-                        if bf.args.len() != 3 {
-                            panic!("__submodx requires 3 args")
+                        if bf.args.len() != 7 {
+                            panic!("__submodx requires 7 args")
                         }
 
                         bytes.push((*offset, Bytes(format!("{}", Opcode::Submodx))));
@@ -357,8 +357,8 @@ pub fn statement_gen(
                         }
                 },
                 BuiltinFunctionKind::Mulmontx => {
-                        if bf.args.len() != 3 {
-                            panic!("__mulmontx requires 3 args");
+                        if bf.args.len() != 7 {
+                            panic!("__mulmontx requires 7 args");
                         }
 
                         bytes.push((*offset, Bytes(format!("{}", Opcode::Mulmontx))));
